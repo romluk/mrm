@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Read environment variables
+        id: vars
+        run: |
+          echo "VAR1=$(grep VAR1 env-vars.yml | awk '{print $2}')" >> $GITHUB_ENV
+          echo "VAR2=$(grep VAR2 env-vars.yml | awk '{print $2}')" >> $GITHUB_ENV
+          echo "VAR3=$(grep VAR3 env-vars.yml | awk '{print $2}')" >> $GITHUB_ENV
+
+      - name: Use variables
+        run: |
+          echo "VAR1 is $VAR1"
+          echo "VAR2 is $VAR2"
+          echo "VAR3 is $VAR3"
