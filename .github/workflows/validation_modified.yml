@@ -6,4 +6,6 @@ jobs:
     name: Verify
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
     with:
-      <<: *parameters.yml
+      maven-matrix: ${{ vars.matrix-parameters.maven-matrix }}
+      jdk-matrix: ${{ vars.matrix-parameters.jdk-matrix }}
+      os-matrix: ${{ vars.matrix-parameters.os-matrix }}
