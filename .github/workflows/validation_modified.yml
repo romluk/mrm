@@ -3,4 +3,8 @@ on: [push, pull_request]
 
 jobs:
   build:
-    uses: c-py/action-dotenv-to-setenv@v5
+    - name: Load environment variables
+      uses: dotenv-actions/setup-dotenv@v2
+      with:
+        dotenv_path: .env
+      run: echo "Host -> $API_KEY"
