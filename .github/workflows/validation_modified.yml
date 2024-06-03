@@ -3,7 +3,11 @@ on: [push, pull_request]
 
 jobs:
    build:
-      name: dotenv
-      uses: xom9ikk/dotenv@v2.3.0
+    - name: Load .env file
+      uses: xom9ikk/dotenv@v2
+      with:
+        path: /
+        mode: development
+        load-mode: strict
     # - name: echo hello world
     #   run: echo "hello ${{ steps.dotenv.outputs.hello }}"
