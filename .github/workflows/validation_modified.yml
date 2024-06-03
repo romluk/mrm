@@ -4,7 +4,6 @@ on: [push, pull_request]
 jobs:
    build:
       name: dotenv
-      id: dotenv
       uses: sammcj/dotenv-output-action@v0.5.44
     # - name: echo hello world
     #   run: echo "hello ${{ steps.dotenv.outputs.hello }}"
