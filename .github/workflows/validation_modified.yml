@@ -1,13 +1,11 @@
-name: Validate CI
+name: Validate CI with parameters in single file
 on: [push, pull_request]
 
 jobs:
-   build:
-    - name: Load .env file
-      uses: xom9ikk/dotenv@v2
-      with:
-        path: /
-        mode: development
-        load-mode: strict
-    # - name: echo hello world
-    #   run: echo "hello ${{ steps.dotenv.outputs.hello }}"
+  build:
+    name: Verify
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
+    with:
+     maven-matrix: '[ "3.6.3", "3.9.5" ]'  
+     jdk-matrix: '[ "17", "21", "8" ]'
+     os-matrix: '[ "ubuntu-latest", "windows-latest", "macos-latest" ]'
