@@ -8,6 +8,7 @@ jobs:
       maven_matrix: ${{ steps.load_config.outputs.maven_matrix }}
       jdk_matrix: ${{ steps.load_config.outputs.jdk_matrix }}
       os_matrix: ${{ steps.load_config.outputs.os_matrix }}
+      maven-args: ${{ steps.load_config.outputs.maven-args }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
