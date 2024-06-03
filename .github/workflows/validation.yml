@@ -1,5 +1,5 @@
 name: Validate CI with parameters in single file
-on: [push, pull_request]
+#on: [push, pull_request]
 
 jobs:
   build:
