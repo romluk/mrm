@@ -2,10 +2,12 @@ name: Validate CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Verify
+  load-config:
     runs-on: ubuntu-latest
-
+    outputs:
+      maven_matrix: ${{ steps.load_config.outputs.maven_matrix }}
+      jdk_matrix: ${{ steps.load_config.outputs.jdk_matrix }}
+      os_matrix: ${{ steps.load_config.outputs.os_matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,9 +31,11 @@ jobs:
           print(f"::set-output name=os_matrix::{config['os-matrix']}")
         shell: python
 
-      - name: Verify
-        uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
-        with:
-          maven-matrix: ${{ steps.load_config.outputs.maven_matrix }}
-          jdk-matrix: ${{ steps.load_config.outputs.jdk_matrix }}
-          os-matrix: ${{ steps.load_config.outputs.os_matrix }}
+  build:
+    name: Verify
+    needs: load-config
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
+    with:
+      maven-matrix: ${{ needs.load-config.outputs.maven_matrix }}
+      jdk-matrix: ${{ needs.load-config.outputs.jdk_matrix }}
+      os-matrix: ${{ needs.load-config.outputs.os_matrix }}
