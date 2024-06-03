@@ -1,8 +1,14 @@
-jobs:
-  build:
-    name: Verify
-    runs-on: ubuntu-latest
+name: Validate CI with parameters in single file
 
+on: [push, pull_request]
+
+jobs:
+  set-env:
+    runs-on: ubuntu-latest
+    outputs:
+      maven_matrix: ${{ steps.set-env.outputs.maven_matrix }}
+      jdk_matrix: ${{ steps.set-env.outputs.jdk_matrix }}
+      os_matrix: ${{ steps.set-env.outputs.os_matrix }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -12,15 +18,17 @@ jobs:
       run: |
         set -a
         source ci-params.txt
-        echo "maven_matrix=$maven_matrix" >> $GITHUB_ENV
-        echo "jdk_matrix=$jdk_matrix" >> $GITHUB_ENV
-        echo "os_matrix=$os_matrix" >> $GITHUB_ENV
+        echo "maven_matrix=${maven_matrix}" >> $GITHUB_ENV
+        echo "jdk_matrix=${jdk_matrix}" >> $GITHUB_ENV
+        echo "os_matrix=${os_matrix}" >> $GITHUB_ENV
         set +a
       shell: bash
 
-    - name: Run Maven Verify
-      uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
-      with:
-        maven-matrix: ${{ env.maven_matrix }}
-        jdk-matrix: ${{ env.jdk_matrix }}
-        os-matrix: ${{ env.os_matrix }}
+  build:
+    name: Verify
+    needs: set-env
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
+    with:
+      maven-matrix: ${{ needs.set-env.outputs.maven_matrix }}
+      jdk-matrix: ${{ needs.set-env.outputs.jdk_matrix }}
+      os-matrix: ${{ needs.set-env.outputs.os_matrix }}
