@@ -22,6 +22,7 @@ jobs:
 
       - name: Load config values
         id: load_config
+        continue-on-error: true
         run: |
           import yaml
           with open("./src/build_options.yml", "r") as stream:
@@ -31,6 +32,7 @@ jobs:
           print(f"::set-output name=os_matrix::{config['os-matrix']}")
           print(f"::set-output name=maven-args::{config['maven-args']}")
         shell: python
+        
 
   build:
     name: Verify
