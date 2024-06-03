@@ -5,5 +5,7 @@ jobs:
   build:
     name: Verify
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
-    with:
-      parameters-file: ./parameters.yml
+    env:
+      MAVEN_MATRIX: ${{ env.MAVEN_MATRIX }}
+      JDK_MATRIX: ${{ env.JDK_MATRIX }}
+      OS_MATRIX: ${{ env.OS_MATRIX }}
