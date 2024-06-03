@@ -6,7 +6,7 @@ jobs:
     name: Verify
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
     with:
-     maven-matrix: '[ "3.6.3", "3.9.5" ]'  # Maven versions matrix for verify builds
+     maven-matrix: '[ "3.6.3", "3.9.5" ]'  
      jdk-matrix: '[ "17", "21", "8" ]'
      os-matrix: '[ "ubuntu-latest", "windows-latest", "macos-latest" ]'
     # maven-args: '-D"invoker.streamLogsOnFailures"'
