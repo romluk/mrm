@@ -3,7 +3,6 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Dotenv
-    uses: falti/dotenv-action@v1.1.2
-        
-            
+    uses: c-py/action-dotenv-to-setenv@v5
+    with:
+      env-file: .env
