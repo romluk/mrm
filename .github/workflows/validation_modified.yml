@@ -24,7 +24,7 @@ jobs:
         id: load_config
         run: |
           import yaml
-          with open("/src/build_options.yml", "r") as stream:
+          with open("./src/build_options.yml", "r") as stream:
               config = yaml.safe_load(stream)
           print(f"::set-output name=maven_matrix::{config['maven-matrix']}")
           print(f"::set-output name=jdk_matrix::{config['jdk-matrix']}")
