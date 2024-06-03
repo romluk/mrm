@@ -29,6 +29,7 @@ jobs:
           print(f"::set-output name=maven_matrix::{config['maven-matrix']}")
           print(f"::set-output name=jdk_matrix::{config['jdk-matrix']}")
           print(f"::set-output name=os_matrix::{config['os-matrix']}")
+          print(f"::set-output name=maven-args::{config['maven-args']}")
         shell: python
 
   build:
@@ -39,3 +40,4 @@ jobs:
       maven-matrix: ${{ needs.load-config.outputs.maven_matrix }}
       jdk-matrix: ${{ needs.load-config.outputs.jdk_matrix }}
       os-matrix: ${{ needs.load-config.outputs.os_matrix }}
+      maven-args: ${{ needs.load-config.outputs.maven-args }}

@@ -1,4 +1,15 @@
-maven-matrix: '[ "3.6.3", "3.9.5" ]'
-jdk-matrix: '[ "17", "21", "8" ]'
-os-matrix: '[ "ubuntu-latest"]'
+# Set maven version
+# Default is: '[ "3.6.3", "3.9.5" ]'
+maven-matrix: '[ "3.6.3"]'
+
+#Set jdk version
+# Default is: '[ "17", "21", "8" ]'
+#jdk-matrix: '[ "17", "21" ]'
+
+#Set os type
+#Default is: '[ "ubuntu-latest", "windows-latest", "macos-latest" ]'
+os-matrix: '[ "windows-latest", "macos-latest"]'
+
+#Set Maven arguments
+#Default is: '-D"invoker.streamLogsOnFailures"'
 maven-args: '-D"invoker.streamLogsOnFailures"'
