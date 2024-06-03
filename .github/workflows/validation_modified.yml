@@ -1,11 +1,37 @@
-name: Validate CI with parameters in single file
+name: Validate CI
 on: [push, pull_request]
 
 jobs:
   build:
     name: Verify
-    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
-    with:
-     maven-matrix: '[ "3.6.3", "3.9.5" ]'  
-     jdk-matrix: '[ "17", "21", "8" ]'
-     os-matrix: '[ "ubuntu-latest", "windows-latest", "macos-latest" ]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Load config values
+        id: load_config
+        run: |
+          import yaml
+          with open("parameters.yml", "r") as stream:
+              config = yaml.safe_load(stream)
+          print(f"::set-output name=maven_matrix::{config['maven-matrix']}")
+          print(f"::set-output name=jdk_matrix::{config['jdk-matrix']}")
+          print(f"::set-output name=os_matrix::{config['os-matrix']}")
+        shell: python
+
+      - name: Verify
+        uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
+        with:
+          maven-matrix: ${{ steps.load_config.outputs.maven_matrix }}
+          jdk-matrix: ${{ steps.load_config.outputs.jdk_matrix }}
+          os-matrix: ${{ steps.load_config.outputs.os_matrix }}
