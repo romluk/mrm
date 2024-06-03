@@ -1,4 +1,0 @@
-maven-matrix: '[ "3.6.3", "3.9.5" ]'
-jdk-matrix: '[ "17", "21", "8" ]'
-os-matrix: '[ "windows-latest", "macos-latest" ]'
-maven-args: '-D"invoker.streamLogsOnFailures"'
