@@ -1,0 +1,9 @@
+name: Validate CI with parameters in single file
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Verify
+    uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v4
+    with:
+      <<: *parameters
