@@ -19,3 +19,4 @@ cd target/checkout
 mvn site
 mvn scm-publish:publish-scm
 ```
+ 
