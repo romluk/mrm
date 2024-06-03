@@ -2,8 +2,8 @@ name: Validate CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    - name: Load environment variables
+   build:
+      name: Load environment variables
       uses: dotenv-actions/setup-dotenv@v2
       with:
         dotenv_path: .env
